@@ -7,7 +7,7 @@ This is a web-based application that allows users to generate dynamic, creative 
 
 ## ✨ Features
 
-- 🧠 Generate p5.js animations using AI (Gemini 2.0 Flash)
+- 🧠 Generate p5.js animations using AI 
 - 🖥️ Live code preview and interactive canvas
 - 💾 Download generated animations as standalone HTML files
 - 🔄 Clean UI with prompt suggestions and loading states
