@@ -1,5 +1,5 @@
 export async function generateAnimationFromPrompt(prompt) {
-  const response = await fetch('http://localhost:3001/api/generate-animation', {
+  const response = await fetch('https://animated-videos-genrator-production.up.railway.app/api/generate-animation', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
