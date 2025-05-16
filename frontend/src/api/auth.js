@@ -1,4 +1,4 @@
-const API_BASE = 'animated-videos-genrator-production.up.railway.app'; 
+const API_BASE = 'https://animated-videos-genrator-production.up.railway.app'; 
 
 export async function signupUser(email, password) {
   const res = await fetch(`${API_BASE}/api/auth/register`, {

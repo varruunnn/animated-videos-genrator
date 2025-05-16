@@ -32,7 +32,7 @@ export default function SignupPage() {
         <div className="h-12 w-12 rounded-full bg-purple-500 flex items-center justify-center">
           <span className="text-2xl font-bold">A</span>
         </div>
-        <span className="text-2xl font-bold">Animato</span>
+        <span className="text-2xl font-bold">Animated Video Genrator</span>
       </div>
       <div className="w-full max-w-md bg-gradient-to-br from-gray-900 to-indigo-900 rounded-2xl border border-purple-500 p-8 shadow-2xl">
         <h2 className="text-center text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
