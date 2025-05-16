@@ -1,112 +1,82 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
-const LandingPage = () => {
-
-  const features = [
-    {
-      title: "AI-Powered Animation Generation",
-      description: "Transform your ideas into beautiful P5.js animations with a simple text prompt",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      )
-    },
-    {
-      title: "Interactive Preview",
-      description: "See your animations in real-time before downloading",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      )
-    },
-    {
-      title: "Downloadable HTML",
-      description: "Save your animations as standalone HTML files for easy sharing",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-      )
-    },
-    {
-      title: "Code Access",
-      description: "View and modify the generated P5.js code to customize your animations",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      )
-    },
-    {
-      title: "Video Export",
-      description: "Download your animations as video files for presentations or social media",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      )
-    },
-    {
-      title: "Example Library",
-      description: "Get inspired with our collection of animation examples",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-      )
-    }
-  ];
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <header className="relative bg-blue-600 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700 opacity-90"></div>
-        <div className="relative max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              P5.js Animation Generator
-            </h1>
-            <p className="mt-6 text-xl text-blue-100 max-w-3xl">
-              Create stunning animations with AI in seconds. Just describe what you want to see, and we'll generate the P5.js code instantly.
-            </p>
-            <div className="mt-10 flex space-x-4">
-              <a href="#features" className="inline-block bg-white py-3 px-6 rounded-md font-medium text-blue-600 hover:bg-blue-50 transition duration-300 shadow-md">
-                Explore Features
-              </a>
-              <a href="/generate-video" className="inline-block bg-blue-900 py-3 px-6 rounded-md font-medium text-white hover:bg-blue-800 transition duration-300 shadow-md">
-                Start Creating
-              </a>
+    <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-black min-h-screen text-white font-sans">
+      <nav className="flex justify-between items-center py-6 px-8 md:px-16">
+        <div className="flex items-center space-x-2">
+          <div className="h-10 w-10 rounded-full bg-purple-500 flex items-center justify-center">
+            <span className="text-xl font-bold">A</span>
+          </div>
+          <span className="text-xl font-bold">Animated Video Genrator</span>
+        </div>
+        <div className="flex items-center space-x-6">
+          <a href="/login" className="hover:text-purple-300 transition-colors">Login</a>
+          <a href="/signup" className="bg-purple-600 hover:bg-purple-500 px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            Sign Up Free
+          </a>
+        </div>
+      </nav>
+      <div className="flex flex-col items-center justify-center px-6 md:px-16 pt-16 md:pt-32 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+          Turn Text Into Stunning Animations
+        </h1>
+        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
+          Our AI transforms your words into beautiful p5.js animations in seconds. No coding required.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 mb-16">
+          <a href="/signup" className="bg-purple-600 hover:bg-purple-500 px-8 py-3 rounded-full text-base font-medium transition-colors">
+            Get Started For Free
+          </a>
+          <button
+            onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+            className="border border-purple-500 cursor-pointer hover:bg-purple-900 px-8 py-3 rounded-full text-base font-medium transition-colors"
+          >
+            See Features
+          </button>
+        </div>
+        <div className="relative w-full max-w-5xl mx-auto mb-16">
+          <div className="absolute inset-0 bg-gradient-to-t from-indigo-900 to-transparent opacity-30 rounded-xl"></div>
+          <div className="bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-700 rounded-xl p-1 bg-opacity-40">
+            <div className="w-[50%] relative left-[50%] translate-x-[-50%] h-64 md:h-96 bg-black bg-opacity-60 rounded-lg flex items-center justify-center">
+              <video
+                src="/bouncing-balls-preview.webm"
+                alt="Bouncing Balls Preview"
+                autoPlay
+                muted
+                loop
+                className="rounded-md object-cover max-h-full"
+              />
             </div>
           </div>
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-2 rounded-full text-sm">
+            "Bouncing balls that change color when they collide"
+          </div>
         </div>
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
-          <div className="w-full h-full bg-pattern-dots"></div>
-        </div>
-      </header>
-      <section id="features" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Everything You Need to Create Stunning Animations</h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            Our AI-powered tool makes it easy to create beautiful P5.js animations without writing a single line of code.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
-              <div className="text-blue-600 mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+        <div id="features" className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mb-20">
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 p-6 rounded-xl border border-purple-700 bg-opacity-40">
+            <div className="bg-purple-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-xl">✍️</span>
             </div>
-          ))}
+            <h3 className="text-xl font-bold mb-2">Simple Text Prompts</h3>
+            <p className="text-gray-300">Describe your vision in words and watch it come to life in seconds</p>
+          </div>
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 p-6 rounded-xl border border-purple-700 bg-opacity-40">
+            <div className="bg-blue-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-xl">⚡</span>
+            </div>
+            <h3 className="text-xl font-bold mb-2">Instant Generation</h3>
+            <p className="text-gray-300">Advanced AI creates beautiful animations without any wait time</p>
+          </div>
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 p-6 rounded-xl border border-purple-700 bg-opacity-40">
+            <div className="bg-indigo-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-xl">💾</span>
+            </div>
+            <h3 className="text-xl font-bold mb-2">Easy Export</h3>
+            <p className="text-gray-300">Download and share your creations anywhere with one click</p>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
-};
-
-export default LandingPage;
+}
