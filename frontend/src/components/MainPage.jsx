@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { generateAnimationFromPrompt } from '../api/generateAnimation.js';
 import AnimationDisplay from './AnimationDisplay.jsx';
 
@@ -200,9 +201,13 @@ ${generatedCode}
           <button className="text-gray-300 hover:text-white">Gallery</button>
           <button className="text-gray-300 hover:text-white">Tutorials</button>
           <button className="text-gray-300 hover:text-white">Settings</button>
-          <div className="h-8 w-8 rounded-full bg-purple-600 flex items-center justify-center">
-            <span className="text-sm font-bold">U</span>
-          </div>
+          <Link to="/profile">
+            <div className="h-8 w-8 rounded-full bg-purple-600 flex items-center justify-center">
+              <span className="text-sm rounded-2xl font-bold">
+                <img className='rounded-2xl ' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2uLl8zBoK0_iM5pNwJAC8hQ2f68YKtlgc7Q&s" alt="" />
+              </span>
+            </div>
+          </Link>
         </div>
       </nav>
       <div className="max-w-6xl mx-auto py-8 px-6">
@@ -335,7 +340,6 @@ ${generatedCode}
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(generatedCode);
-                      // You could add a notification here
                     }}
                     className="bg-gray-800 hover:bg-gray-700 text-white text-sm px-3 py-1 rounded-full transition-colors"
                   >
