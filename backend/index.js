@@ -12,6 +12,7 @@ app.use(express.json());
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/generate-animation', require('./routes/animation'));
 app.use('/api/profile', require('./routes/profile'));
+app.use('/api/health', require('./routes/health'));
 
 
 const PORT = process.env.PORT || 3001;
