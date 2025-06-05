@@ -189,87 +189,145 @@ ${generatedCode}
   };
 
   return (
-    <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-black min-h-screen text-white font-sans">
-      <nav className="flex justify-between items-center py-6 px-8 md:px-16 border-b border-purple-700/50">
-        <div className="flex items-center space-x-2">
-          <div className="h-10 w-10 rounded-full bg-purple-500 flex items-center justify-center">
-            <span className="text-xl font-bold">A</span>
+    <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 min-h-screen text-white font-sans overflow-hidden">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
+      <nav className="relative z-10 flex justify-between items-center py-6 px-8 md:px-16 backdrop-blur-md bg-white/5 border-b border-white/10 shadow-2xl">
+        <div className="flex items-center space-x-4 group">
+          <div className="relative">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-110">
+              <span className="text-xl font-bold">A</span>
+            </div>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-300"></div>
           </div>
-          <span className="text-xl font-bold">Animated Video Genrator</span>
+          <span className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent">
+            Animated Video Generator
+          </span>
         </div>
-        <div className="flex items-center space-x-4">
-          <button className="text-gray-300 hover:text-white">Gallery</button>
-          <button className="text-gray-300 hover:text-white">Tutorials</button>
-          <button className="text-gray-300 hover:text-white">Settings</button>
-          <Link to="/profile">
-            <div className="h-8 w-8 rounded-full bg-purple-600 flex items-center justify-center">
-              <span className="text-sm rounded-2xl font-bold">
-                <img className='rounded-2xl ' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2uLl8zBoK0_iM5pNwJAC8hQ2f68YKtlgc7Q&s" alt="" />
-              </span>
+        <div className="flex items-center space-x-8">
+          <button className="relative text-gray-300 hover:text-white transition-all duration-300 font-medium text-lg group">
+            Gallery
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
+          </button>
+          <button className="relative text-gray-300 hover:text-white transition-all duration-300 font-medium text-lg group">
+            Tutorials
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
+          </button>
+          <button className="relative text-gray-300 hover:text-white transition-all duration-300 font-medium text-lg group">
+            Settings
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
+          </button>
+          <Link to="/profile" className="group">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-xl group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-110 overflow-hidden">
+              <img className='rounded-xl w-full h-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2uLl8zBoK0_iM5pNwJAC8hQ2f68YKtlgc7Q&s" alt="Profile" />
             </div>
           </Link>
         </div>
       </nav>
-      <div className="max-w-6xl mx-auto py-8 px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 mb-4">
-            AI Animation Studio
+
+      <div className="relative z-10 max-w-7xl mx-auto py-8 px-6 md:px-16">
+        <div className="text-center mb-16 animate-slideInUp">
+          <div className="mb-8">
+            <span className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20 border border-blue-400/30 rounded-full text-blue-200 text-sm font-medium backdrop-blur-sm shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105">
+              <span className="mr-2 text-yellow-300 animate-pulse">✨</span>
+              AI-Powered Animation Studio
+            </span>
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="inline-block bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent">
+              Create Stunning
+            </span>
+            <br />
+            <span className="inline-block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Animations
+            </span>
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Transform your ideas into stunning p5.js animations in seconds with our AI-powered generator
+          
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+            Transform your creative ideas into breathtaking p5.js animations instantly with our advanced AI technology.
           </p>
         </div>
-        <div className="bg-gradient-to-br from-gray-900 to-indigo-900/80 rounded-xl border border-purple-700/50 p-6 shadow-lg mb-10">
-          <div className="mb-6">
-            <label htmlFor="prompt" className="block text-gray-300 font-medium mb-2">
-              Describe the animation you want to create:
-            </label>
-            <textarea
-              id="prompt"
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-              rows="3"
-              value={prompt}
-              onChange={handlePromptChange}
-              placeholder="Example: Cosmic particles flowing through space, connecting to form constellations"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            <span className="text-sm font-medium text-gray-300">Try these:</span>
-            {samplePrompts.map((example, index) => (
-              <button
-                key={index}
-                onClick={() => useExamplePrompt(example)}
-                className="text-sm bg-purple-900/60 hover:bg-purple-800 border border-purple-700 rounded-full px-3 py-1 text-gray-200 transition-colors"
-              >
-                {example}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex justify-center">
-            <button
-              onClick={generateAnimation}
-              disabled={isLoading}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-medium py-3 px-8 rounded-full transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center"
-            >
-              {isLoading ? (
-                <>
-                  <div className="mr-2 h-5 w-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
-                  Creating Magic...
-                </>
-              ) : (
-                <>Generate Animation</>
-              )}
-            </button>
-          </div>
-
-          {error && (
-            <div className="mt-4 bg-red-900/40 border border-red-500 text-white rounded-lg p-3 text-center">
-              {error}
+        <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 mb-16 group animate-slideInUp" style={{animationDelay: '0.2s'}}>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <div className="relative z-10">
+            <div className="mb-8">
+              <label htmlFor="prompt" className="block text-gray-200 font-semibold text-lg mb-4">
+                Describe your dream animation:
+              </label>
+              <textarea
+                id="prompt"
+                className="w-full px-6 py-4 bg-gradient-to-br from-gray-900/80 to-blue-900/20 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-300 text-lg resize-none shadow-inner"
+                rows="4"
+                value={prompt}
+                onChange={handlePromptChange}
+                placeholder="Example: Cosmic particles flowing through space, connecting to form brilliant constellations that pulse with rainbow colors..."
+              />
             </div>
-          )}
+
+            <div className="mb-8">
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <span className="text-sm font-medium text-gray-300 flex items-center">
+                  <span className="mr-2">💡</span>
+                  Quick inspirations:
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {samplePrompts.map((example, index) => (
+                  <button
+                    key={index}
+                    onClick={() => useExamplePrompt(example)}
+                    className="group relative bg-gradient-to-r from-blue-500/20 to-cyan-500/20 hover:from-blue-500/30 hover:to-cyan-500/30 border border-blue-400/30 hover:border-blue-400/50 rounded-full px-5 py-2 text-gray-200 hover:text-white transition-all duration-300 text-sm font-medium backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105"
+                  >
+                    <span className="relative z-10">{example}</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={generateAnimation}
+                disabled={isLoading}
+                className="group relative bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 px-12 py-5 rounded-xl text-xl font-semibold transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center">
+                  {isLoading ? (
+                    <>
+                      <div className="mr-3 h-6 w-6 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+                      Creating Magic...
+                    </>
+                  ) : (
+                    <>
+                      Generate Animation
+                      <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </>
+                  )}
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            </div>
+
+            {error && (
+              <div className="mt-6 bg-gradient-to-r from-red-900/40 to-pink-900/40 border border-red-400/50 backdrop-blur-sm text-white rounded-2xl p-4 text-center shadow-lg">
+                <div className="flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  {error}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+
 
         {generatedCode && !isLoading && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
