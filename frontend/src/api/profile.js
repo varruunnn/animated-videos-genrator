@@ -1,4 +1,4 @@
-const API_BASE = 'https://animated-videos-genrator-production.up.railway.app';
+const API_BASE = 'https://animated-videos-genrator.onrender.com';
 
 export const getProfile = async (token) => {
   const res = await fetch(`${API_BASE}/api/profile`, {
