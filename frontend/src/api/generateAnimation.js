@@ -1,6 +1,6 @@
 export async function generateAnimationFromPrompt(prompt) {
   const token = localStorage.getItem('token');
-  const response = await fetch('https://animated-videos-genrator-production.up.railway.app/api/generate-animation', {
+  const response = await fetch('https://animated-videos-genrator.onrender.com/api/generate-animation', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
