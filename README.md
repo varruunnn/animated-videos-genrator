@@ -28,4 +28,8 @@ This is a web-based application that allows users to generate dynamic, creative 
 - Gemini API (via `@google/genai` SDK)
 
 ---
+***Video Proofs ***
+
+https://github.com/user-attachments/assets/92e4e88d-42e3-4962-bc65-97224ba3ec50
+
 
