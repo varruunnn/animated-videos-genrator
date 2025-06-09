@@ -1,6 +1,5 @@
 
 # 🎨 AI-Powered P5.js Animation Generator
-
 This is a web-based application that allows users to generate dynamic, creative p5.js animations using natural language prompts. Built using React, Node.js, and Google's Gemini API, this tool transforms plain English into live-running code with a visual preview.
 
 ---
