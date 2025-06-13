@@ -88,7 +88,6 @@ export default function ProfilePage() {
 
   const handlePurchasePackage = (packageData) => {
     setSelectedPackage(packageData);
-    // Here you would integrate with payment gateway
     setMsg(
       `Initiating purchase of ${packageData.tokens} tokens for ₹${packageData.price}`
     );
@@ -102,7 +101,7 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 min-h-screen text-white font-sans flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans flex items-center justify-center px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div
@@ -128,7 +127,7 @@ export default function ProfilePage() {
             ></div>
           ))}
         </div>
-        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl border border-white/20 p-10 shadow-2xl animate-slideInUp">
+        <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 backdrop-blur-2xl rounded-3xl border border-white/20 p-10 shadow-2xl animate-slideInUp">
           <div
             style={{
               display: "flex",
@@ -148,8 +147,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 min-h-screen text-white font-sans relative overflow-hidden">
-      {/* Background animations */}
+    <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div
