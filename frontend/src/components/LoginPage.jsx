@@ -18,19 +18,21 @@ export default function LoginPage() {
     }
   }, [user])
 
-
   const handleSubmit = async e => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    
     try {
       await login(email, password);
       navigate('/generate-video');
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      setError(err.message || 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
-
-
 
   return (
     <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 relative overflow-hidden">
@@ -93,6 +95,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -114,6 +117,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
