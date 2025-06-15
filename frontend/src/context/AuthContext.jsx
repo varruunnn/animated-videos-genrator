@@ -1,26 +1,46 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { loginUser, signupUser, fetchMe, logoutUser } from '../api/auth.js';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+    user: null,
+    login: async () => { },
+    logout: async () => { },
+    loading: true,
+});
 
 export function AuthProvider({ children }) {
-    const [token, setToken] = useState(() => localStorage.getItem('token'));
-    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        (async () => {
+            const me = await fetchMe();
+            setUser(me);
+            setLoading(false);
+        })();
+    }, []);
 
-    const login = (jwt) => {
-        localStorage.setItem('token', jwt);
-        setToken(jwt);
-    }
-    const logout = () => {
-        localStorage.removeItem('token');
-        setToken(null);
-    }
+    const login = async (email, password) => {
+        setLoading(true);
+        await loginUser(email, password);
+        const me = await fetchMe();
+        setUser(me);
+        setLoading(false);
+    };
+
+    const logout = async () => {
+        setLoading(true);
+        await logoutUser();
+        setUser(null);
+        setLoading(false);
+    };
+
     return (
-        <AuthContext.Provider value={{ token, login, logout, loading, setLoading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+    return useContext(AuthContext);
 }

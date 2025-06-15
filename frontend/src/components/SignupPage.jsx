@@ -1,46 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { signupUser } from '../api/auth';
 import { useNavigate, Link } from 'react-router-dom';
+
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const { login, setLoading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const { user, login } = useAuth();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (user != null) {
+      navigate('/generate-video')
+    }
+  }, [user])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
-    setLoading(true);
+
     setIsLoading(true);
     try {
-      const { token } = await signupUser(email, password);
-      login(token);
-      navigate('/genrate-video');
+      await signupUser(email, password);
+      await login(email, password);
+      navigate('/generate-video');
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900  min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -77,7 +82,7 @@ export default function SignupPage() {
           </h2>
           <p className="text-gray-400 text-lg">Create your account and start animating</p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="group">
             <label className="block text-gray-300 mb-3 text-sm font-semibold uppercase tracking-wider">
@@ -89,13 +94,13 @@ export default function SignupPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                 </svg>
               </div>
-              <input 
+              <input
                 className="bg-gray-800/50 text-white w-full pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-600/50 focus:border-purple-500 backdrop-blur-sm transition-all duration-300 text-lg placeholder-gray-500 hover:bg-gray-800/70"
                 type="email"
                 placeholder="your@email.com"
-                value={email} 
+                value={email}
                 onChange={e => setEmail(e.target.value)}
-                required 
+                required
               />
             </div>
           </div>
@@ -109,13 +114,13 @@ export default function SignupPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <input 
+              <input
                 className="bg-gray-800/50 text-white w-full pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-600/50 focus:border-purple-500 backdrop-blur-sm transition-all duration-300 text-lg placeholder-gray-500 hover:bg-gray-800/70"
                 type="password"
                 placeholder="••••••••••••"
-                value={password} 
+                value={password}
                 onChange={e => setPassword(e.target.value)}
-                required 
+                required
               />
             </div>
             <p className="text-sm text-gray-500 mt-2">At least 8 characters with numbers and symbols</p>
@@ -130,13 +135,13 @@ export default function SignupPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <input 
+              <input
                 className="bg-gray-800/50 text-white w-full pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-600/50 focus:border-purple-500 backdrop-blur-sm transition-all duration-300 text-lg placeholder-gray-500 hover:bg-gray-800/70"
                 type="password"
                 placeholder="••••••••••••"
-                value={confirmPassword} 
+                value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
-                required 
+                required
               />
             </div>
           </div>
@@ -150,8 +155,8 @@ export default function SignupPage() {
               </div>
             </div>
           )}
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isLoading}
             className="group relative w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/25 disabled:cursor-not-allowed disabled:transform-none overflow-hidden"
           >
@@ -176,7 +181,7 @@ export default function SignupPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
         </form>
-        
+
         {/* Login Link */}
         <div className="mt-10 pt-8 border-t border-gray-700/50 text-center">
           <p className="text-gray-400 text-lg">

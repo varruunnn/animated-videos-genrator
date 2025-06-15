@@ -8,8 +8,9 @@ import MainPage from './components/MainPage';
 import ProfilePage from './components/ProfilePage';
 
 function ProtectedRoute({ children }) {
-  const { token } = useAuth();
-  return token ? children : <Navigate to="/login" />;
+  const { user, loading } = useAuth();
+  if (loading) return <div>Loading...</div>;
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
@@ -21,17 +22,24 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route
-            path="/genrate-video"
+            path="/generate-video"
             element={
               <ProtectedRoute>
                 <MainPage />
               </ProtectedRoute>
             }
           />
-          <Route path="/profile" element={
-            <ProtectedRoute><ProfilePage /></ProtectedRoute>
-          } />
-          <Route path="*" element={<Navigate to="/" />} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

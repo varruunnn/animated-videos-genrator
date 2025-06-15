@@ -1,10 +1,10 @@
+const API_BASE = import.meta.env.VITE_API_BASE;
 export async function generateAnimationFromPrompt(prompt) {
-  const token = localStorage.getItem('token');
-  const response = await fetch('https://animated-videos-genrator.onrender.com/api/generate-animation', {
+  const response = await fetch(`${API_BASE}/api/generate-animation`, {
     method: 'POST',
+    credentials:'include',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({ prompt }),
   });

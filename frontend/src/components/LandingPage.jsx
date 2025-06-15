@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Code, Download, Sparkles, ArrowRight, Github, Star } from 'lucide-react';
 import { Analytics } from "@vercel/analytics/react"
-import { href } from 'react-router-dom';
+import { href, Link } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext.jsx";
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { user } = useAuth();
 
   useEffect(() => {
     setIsVisible(true);
@@ -86,13 +88,15 @@ export default function LandingPage() {
               <Github className="w-4 h-4" />
             </a>
           </div>
-          <a
-            href={localStorage.getItem('token') ? '/genrate-video' : '/signup'}
+          <Link
             className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-          >
+            to={user ? '/generate-video' : '/signup'}>
+            {user ? 'Generate Video' : 'Sign Up'}
+
+
             <span>Try It Now</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </nav>
       <section className="relative z-10 px-6 lg:px-12 pt-20 pb-32">

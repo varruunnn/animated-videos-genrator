@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, updateName, updatePassword } from "../api/profile.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState(null);
-  const [name, setName] = useState("");
   const [currentPwd, setCurrentPwd] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [name, setName] = useState("");
   const [newPwd, setNewPwd] = useState("");
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [activeSection, setActiveSection] = useState("profile");
   const [isLoading, setIsLoading] = useState(false);
+  const { user, logout } = useAuth();
   const [showTokenPurchase, setShowTokenPurchase] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const nav = useNavigate();
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    nav("/login");
-  }
+
+  useEffect(() => {
+    if (user == null) {
+      nav('/login')
+    }
+  }, [user, nav]);
 
   const tokenPackages = [
     { id: 1, tokens: 10, price: 50, popular: false, discount: null },
@@ -27,26 +31,27 @@ export default function ProfilePage() {
   ];
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    (async () => {
       try {
-        const profileData = await getProfile(token);
-        setUser(profileData);
-        setName(profileData.name || "");
-      } catch (error) {
-        setMsg("Failed to load profile");
+        const profileData = await getProfile();
+        setProfile(profileData);
+        setName(profileData.name || "")
+      } catch {
+        setMsg('Failed to load profile');
       }
-    };
-    fetchProfile();
-  }, [token, nav]);
+    })();
+  }, []);
 
   const handleSaveName = async () => {
     setMsg("");
     setIsLoading(true);
     try {
-      const updatedUser = await updateName(token, name);
-      setUser(updatedUser.user);
+      const updatedProfile = await updateName(name);
+      setProfile(updatedProfile);       // update your local profile state
+      setName(updatedProfile.name || "");
       setMsgType("success");
       setMsg("Name updated successfully");
+      window.location.reload();
     } catch (error) {
       setMsgType("error");
       setMsg("Update failed");
@@ -63,7 +68,7 @@ export default function ProfilePage() {
     }
     setIsLoading(true);
     try {
-      await updatePassword(token, currentPwd, newPwd);
+      await updatePassword(currentPwd, newPwd);
       setMsgType("success");
       setMsg("Password changed successfully");
       setCurrentPwd("");
@@ -77,8 +82,7 @@ export default function ProfilePage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    nav("/login");
+    logout()
   };
 
   const handleBuyTokens = () => {
@@ -99,7 +103,7 @@ export default function ProfilePage() {
     setActiveSection("profile");
   };
 
-  if (!user) {
+  if (!profile) {
     return (
       <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans flex items-center justify-center px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -245,9 +249,9 @@ export default function ProfilePage() {
                 <div className="h-24 w-24 rounded-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 flex items-center justify-center mb-4 p-1 shadow-2xl">
                   <img
                     src={
-                      user.avatar ||
+                      profile.avatar ||
                       "https://api.dicebear.com/6.x/initials/svg?seed=" +
-                        (user.name || user.email)
+                      (profile.name || profile.email)
                     }
                     alt="avatar"
                     className="w-full h-full rounded-full object-cover"
@@ -255,14 +259,14 @@ export default function ProfilePage() {
                       e.target.onerror = null;
                       e.target.src =
                         "https://api.dicebear.com/6.x/initials/svg?seed=" +
-                        (user.name || user.email);
+                        (profile.name || profile.email);
                     }}
                   />
                 </div>
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent">
-                  {user.name || "User"}
+                  {profile.name || "profile"}
                 </h2>
-                <p className="text-blue-300 text-lg">{user.email}</p>
+                <p className="text-blue-300 text-lg">{profile.email}</p>
               </div>
 
               <div className="flex flex-col gap-3 mb-8">
@@ -271,11 +275,10 @@ export default function ProfilePage() {
                     setActiveSection("profile");
                     setShowTokenPurchase(false);
                   }}
-                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${
-                    activeSection === "profile"
-                      ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25"
-                      : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-blue-500"
-                  }`}
+                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${activeSection === "profile"
+                    ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25"
+                    : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-blue-500"
+                    }`}
                 >
                   <span className="flex items-center">
                     <svg
@@ -299,11 +302,10 @@ export default function ProfilePage() {
                     setActiveSection("security");
                     setShowTokenPurchase(false);
                   }}
-                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${
-                    activeSection === "security"
-                      ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25"
-                      : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-blue-500"
-                  }`}
+                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${activeSection === "security"
+                    ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25"
+                    : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-blue-500"
+                    }`}
                 >
                   <span className="flex items-center">
                     <svg
@@ -324,11 +326,10 @@ export default function ProfilePage() {
                 </button>
                 <button
                   onClick={handleBuyTokens}
-                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${
-                    activeSection === "tokens"
-                      ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25"
-                      : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-green-500"
-                  }`}
+                  className={`group relative text-left px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] font-semibold ${activeSection === "tokens"
+                    ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25"
+                    : "bg-gray-800/50 hover:bg-gray-800/70 text-gray-300 hover:text-white border border-gray-600/50 hover:border-green-500"
+                    }`}
                 >
                   <span className="flex items-center">
                     <svg
@@ -355,7 +356,7 @@ export default function ProfilePage() {
                     Available Tokens
                   </span>
                   <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    {user.tokens}
+                    {profile.tokens}
                   </span>
                 </div>
                 <div className="mb-4">
@@ -363,7 +364,7 @@ export default function ProfilePage() {
                     <div
                       className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-400 rounded-full transition-all duration-500 shadow-lg"
                       style={{
-                        width: `${Math.min(100, (user.tokens / 100) * 100)}%`,
+                        width: `${Math.min(100, (profile.tokens / 100) * 100)}%`,
                       }}
                     ></div>
                   </div>
@@ -389,9 +390,8 @@ export default function ProfilePage() {
                   {tokenPackages.map((pkg) => (
                     <div
                       key={pkg.id}
-                      className={`relative group ${
-                        pkg.popular ? "transform scale-105" : ""
-                      }`}
+                      className={`relative group ${pkg.popular ? "transform scale-105" : ""
+                        }`}
                     >
                       {pkg.popular && (
                         <div className="absolute -top-4 left-0 right-0 flex justify-center">
@@ -406,19 +406,17 @@ export default function ProfilePage() {
                         </div>
                       )}
                       <div
-                        className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border transition-all duration-300 p-8 h-full flex flex-col justify-between group-hover:shadow-2xl ${
-                          pkg.popular
-                            ? "border-yellow-500/50 shadow-yellow-500/20"
-                            : "border-white/20 hover:border-blue-500/50 hover:shadow-blue-500/20"
-                        }`}
+                        className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border transition-all duration-300 p-8 h-full flex flex-col justify-between group-hover:shadow-2xl ${pkg.popular
+                          ? "border-yellow-500/50 shadow-yellow-500/20"
+                          : "border-white/20 hover:border-blue-500/50 hover:shadow-blue-500/20"
+                          }`}
                       >
                         <div className="text-center mb-6">
                           <div
-                            className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
-                              pkg.popular
-                                ? "bg-gradient-to-br from-yellow-500 to-orange-500"
-                                : "bg-gradient-to-br from-blue-500 to-cyan-500"
-                            }`}
+                            className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${pkg.popular
+                              ? "bg-gradient-to-br from-yellow-500 to-orange-500"
+                              : "bg-gradient-to-br from-blue-500 to-cyan-500"
+                              }`}
                           >
                             <svg
                               className="w-8 h-8 text-white"
@@ -516,11 +514,10 @@ export default function ProfilePage() {
 
                         <button
                           onClick={() => handlePurchasePackage(pkg)}
-                          className={`group relative w-full font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl overflow-hidden ${
-                            pkg.popular
-                              ? "bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black hover:shadow-yellow-500/25"
-                              : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white hover:shadow-blue-500/25"
-                          }`}
+                          className={`group relative w-full font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl overflow-hidden ${pkg.popular
+                            ? "bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black hover:shadow-yellow-500/25"
+                            : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white hover:shadow-blue-500/25"
+                            }`}
                         >
                           <span className="relative z-10 flex items-center justify-center text-lg">
                             Purchase Now
@@ -539,11 +536,10 @@ export default function ProfilePage() {
                             </svg>
                           </span>
                           <div
-                            className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                              pkg.popular
-                                ? "bg-gradient-to-r from-orange-500 to-yellow-500"
-                                : "bg-gradient-to-r from-cyan-600 to-purple-600"
-                            }`}
+                            className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${pkg.popular
+                              ? "bg-gradient-to-r from-orange-500 to-yellow-500"
+                              : "bg-gradient-to-r from-cyan-600 to-purple-600"
+                              }`}
                           ></div>
                         </button>
                       </div>
@@ -636,9 +632,8 @@ export default function ProfilePage() {
                 </h3>
                 {msg && (
                   <p
-                    className={`mb-4 ${
-                      msgType === "success" ? "text-green-400" : "text-red-400"
-                    }`}
+                    className={`mb-4 ${msgType === "success" ? "text-green-400" : "text-red-400"
+                      }`}
                   >
                     {msg}
                   </p>
@@ -655,11 +650,10 @@ export default function ProfilePage() {
                 <button
                   onClick={handleSaveName}
                   disabled={isLoading}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                    isLoading
-                      ? "bg-gray-600 cursor-not-allowed"
-                      : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-500/25"
-                  }`}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${isLoading
+                    ? "bg-gray-600 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-500/25"
+                    }`}
                 >
                   {isLoading ? "Saving..." : "Save Name"}
                 </button>
@@ -697,11 +691,10 @@ export default function ProfilePage() {
                 <button
                   onClick={handleChangePassword}
                   disabled={isLoading}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                    isLoading
-                      ? "bg-gray-600 cursor-not-allowed"
-                      : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-500/25"
-                  }`}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${isLoading
+                    ? "bg-gray-600 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-500/25"
+                    }`}
                 >
                   {isLoading ? "Changing..." : "Change Password"}
                 </button>

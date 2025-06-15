@@ -1,42 +1,37 @@
-const API_BASE = 'https://animated-videos-genrator.onrender.com';
+const API_BASE = import.meta.env.VITE_API_BASE;
 
-export const getProfile = async (token) => {
+export const getProfile = async () => {
   const res = await fetch(`${API_BASE}/api/profile`, {
-    headers: { 'Authorization': `Bearer ${token}` }
+    credentials: "include",
   });
   if (!res.ok) {
-    throw new Error('Failed to fetch profile');
+    throw new Error("Failed to fetch profile");
   }
   return res.json();
 };
 
-
-export const updateName = async (token, name) => {
+export const updateName = async (name) => {
   const res = await fetch(`${API_BASE}/api/profile`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify({ name })
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
   });
   if (!res.ok) {
-    throw new Error('Failed to update name'); 
+    throw new Error("Failed to update name");
   }
   return res.json();
 };
 
-export const updatePassword = async (token, currentPassword, newPassword) => {
+export const updatePassword = async (currentPassword, newPassword) => {
   const res = await fetch(`${API_BASE}/api/profile/password`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify({ currentPassword, newPassword })
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ currentPassword, newPassword }),
   });
   if (!res.ok) {
-    const errorData = await res.json(); 
-    throw new Error(errorData.error || 'Failed to update password'); 
+    const err = await res.json();
+    throw new Error(err.error || "Failed to update password");
   }
 };
