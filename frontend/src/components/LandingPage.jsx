@@ -38,7 +38,7 @@ export default function LandingPage() {
     {
       icon: <Download className="w-6 h-6" />,
       title: "Export Ready",
-      description: "Download your animations as standalone HTML files ready to share or deploy"
+      description: "Download your animations as standalone HTML files or as video ready to share or deploy"
     }
   ];
 
