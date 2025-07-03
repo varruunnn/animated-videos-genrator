@@ -47,7 +47,7 @@ export default function ProfilePage() {
     setIsLoading(true);
     try {
       const updatedProfile = await updateName(name);
-      setProfile(updatedProfile);       // update your local profile state
+      setProfile(updatedProfile);      
       setName(updatedProfile.name || "");
       setMsgType("success");
       setMsg("Name updated successfully");
